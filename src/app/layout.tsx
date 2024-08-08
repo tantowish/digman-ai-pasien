@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -22,7 +23,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={quicksand.className}>{children}</body>
+      <body className={quicksand.className}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

@@ -6,12 +6,12 @@ import { anthropic } from '@ai-sdk/anthropic';
 
 export async function POST(req: NextRequest) {
     try{
-        const { messages, data } = await req.json();
+        const { messages } = await req.json();
         console.log(messages)
         
-        const model = data.model
-        console.log(model)
-    
+        const model = "chatgpt"
+        // console.log(model)
+
         if(model == 'chatgpt'){
             if(!process.env.OPENAI_API_KEY){
                 return new NextResponse('Missing Openai API Key.', {status: 400})
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
                 messages,
             });
 
-            return response.toAIStreamResponse()
+            return response.toDataStreamResponse()
         }
         else if(model == 'gemini'){
             if(!process.env.GOOGLE_GENERATIVE_AI_API_KEY){
