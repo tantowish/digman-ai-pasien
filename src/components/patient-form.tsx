@@ -52,7 +52,6 @@ export function PatientForm({setIsOpen, setUser}: Props) {
         age: Number(values.age),
         sex: values.sex
       })
-      // console.log(values)
     }
 
   return (
@@ -108,7 +107,7 @@ export function PatientForm({setIsOpen, setUser}: Props) {
           )}
         />
         <div className="w-full flex flex-wrap justify-center">
-          <Button className="rounded-lg bg-main hover:hover:bg-teal-400" type="submit">Konsultasi Kecerdasan Buatan</Button>
+          <Button className="rounded-lg bg-main hover:hover:bg-teal-400 font-semibold" type="submit">Konsultasi Kecerdasan Buatan</Button>
         </div>
       </form>
     </Form>

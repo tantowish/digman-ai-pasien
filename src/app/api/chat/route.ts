@@ -7,7 +7,7 @@ import { anthropic } from '@ai-sdk/anthropic';
 export async function POST(req: NextRequest) {
     try{
         const { messages } = await req.json();
-        console.log(messages)
+        // console.log(messages)
         
         const model = "chatgpt"
         // console.log(model)
