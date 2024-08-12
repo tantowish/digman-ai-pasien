@@ -64,8 +64,8 @@ export default function ChatContainer() {
         console.log(type)
     }, [type])
   return (
-      <div className="px-4 md:px-0 w-96 mx-auto">
-        <div className="bg-white shadow-2xl rounded-lg max-w-lg w-full  transition ease-in-out duration-500 group">
+      <div className="px-4 lg:px-0 w-full md:w-[80%] lg:w-[70%] mx-auto">
+        <div className="bg-white shadow-2xl rounded-lg w-full  transition ease-in-out duration-500 group">
             <div className="p-4 border-b bg-main text-white rounded-t-lg flex justify-between items-center">
                 <p className="text-lg font-semibold">Carigi AI</p>
                 <div className="flex flex-wrap items-center">
@@ -80,7 +80,7 @@ export default function ChatContainer() {
             </div>
             <div>
                 {isImage ? 
-                    <div className="p-4 h-[394px] overflow-y-auto text-center flex flex-col justify-center items-center">
+                    <div className="p-4 h-[60vh] overflow-y-auto text-center flex flex-col justify-center items-center">
                         {isUploadSection ? 
                                 <ImageInput setIsUploadSection={setIsUploadSection}/>
                             :
@@ -100,32 +100,27 @@ export default function ChatContainer() {
                     </div>
                     :
                     <>
-                        <ScrollArea className="px-4 h-80 overflow-y-auto">
+                        <ScrollArea className="px-4 h-[60vh] overflow-y-auto w-full">
                             <ScrollBar />
                             <div className="mt-4 mb-2">
-                                <p className="bg-gray-200 text-gray-700 text-sm rounded-lg py-2 px-4 inline-block max-w-xs text-justify">Halo, saya adalah AI yang memiliki pengetahuan tentang gigi dan mulut, silahkan tanya apapun terkait permasalahan anda. </p>
+                                <p className="bg-gray-200 text-gray-700 text-sm rounded-lg py-2 px-4 inline-block max-w-[90%] text-justify">Halo, saya adalah AI yang memiliki pengetahuan tentang gigi dan mulut, silahkan tanya apapun terkait permasalahan anda. </p>
                             </div>
                             {messages.map((message, index) => (
                                 <>
                                     {message.role === "assistant" && (
                                         <div className="mb-2">
-                                            <Markdown className="bg-gray-200 text-gray-700 text-sm rounded-lg py-2 px-4 inline-block max-w-xs overflow-auto text-justify">{message.content}</Markdown>
+                                            <Markdown className="bg-gray-200 text-gray-700 text-sm rounded-lg py-2 px-4 inline-block max-w-[90%] overflow-auto text-justify">{message.content}</Markdown>
                                         </div>
                                     )}
                                     {message.role === "user" && (
                                         <div className='text-right mb-2'>
-                                            <p className="bg-main text-sm text-white rounded-lg py-2 px-4 w-fit inline-block max-w-xs overflow-auto break-words">{message.content}</p>
-                                            {/* <div className="py-2 px-3 lg:px-4 bg-[#323232] rounded-3xl w-fit ml-auto">
-                                                <p className="break-words max-w-xs sm:max-w-sm md:max-w-xl lg:max-w-sm xl:max-w-3xl">
-                                                    {message.content}
-                                                </p>
-                                            </div> */}
+                                            <p className="bg-main text-sm text-white rounded-lg py-2 px-4 w-fit inline-block max-w-[90%] overflow-auto break-words">{message.content}</p>
                                         </div>
                                     )}
                                 </>
                             ))}
                         </ScrollArea>
-                        <form onSubmit={handleSubmit} method="post" className="p-4 border-t flex flex-nowrap mx-auto min-h-[74px]">
+                        <form onSubmit={handleSubmit} method="post" className="p-4 border-t flex flex-nowrap mx-auto">
                             <TextareaAutosize 
                                 onChange={handleInputChange} 
                                 onKeyDown={handleKeyDown}
