@@ -14,19 +14,28 @@ import ImageInput from './image-input';
 type Props = {
     user: User
 }
-export default function ChatContainer() {
+export default function ChatContainer({user}: Props) {
     const [isImage, setIsImage] = useState<boolean>(false)
     const [type, setType] = useState<string | null>(null)
     const [isUploadSection, setIsUploadSection] = useState<boolean>(false)
-    const { messages, input, handleInputChange, handleSubmit, error, isLoading } = useChat({
+    const { messages, input, handleInputChange, handleSubmit, error, isLoading, setMessages } = useChat({
         initialMessages: [
             {
-                id: new Date().toDateString(),
+                id: new Date().toISOString(),
                 content: PROMPTCHAT,
                 role: "system"
             }
         ],
     });
+
+    useEffect(() => {
+        setMessages([...messages, {
+            id: new Date().toISOString(),
+            content: `Nama pasien adalah ${user.name} umur ${user.age} jenis kelamin ${user.sex}`,
+            role: "system"
+        }])
+    }, [])
+
 
     useEffect(()=>{
         if(error){
@@ -106,7 +115,7 @@ export default function ChatContainer() {
                                 <p className="bg-gray-200 text-gray-700 text-sm rounded-lg py-2 px-4 inline-block max-w-[90%] text-justify">Halo, saya adalah AI yang memiliki pengetahuan tentang gigi dan mulut, silahkan tanya apapun terkait permasalahan anda. </p>
                             </div>
                             {messages.map((message, index) => (
-                                <>
+                                <div key={message.id}>
                                     {message.role === "assistant" && (
                                         <div className="mb-2">
                                             <Markdown className="bg-gray-200 text-gray-700 text-sm rounded-lg py-2 px-4 inline-block max-w-[90%] overflow-auto text-justify">{message.content}</Markdown>
@@ -117,7 +126,7 @@ export default function ChatContainer() {
                                             <p className="bg-main text-sm text-white rounded-lg py-2 px-4 w-fit inline-block max-w-[90%] overflow-auto break-words">{message.content}</p>
                                         </div>
                                     )}
-                                </>
+                                </div>
                             ))}
                         </ScrollArea>
                         <form onSubmit={handleSubmit} method="post" className="p-4 border-t flex flex-nowrap mx-auto">

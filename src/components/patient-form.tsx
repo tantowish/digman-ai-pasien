@@ -39,9 +39,9 @@ export function PatientForm({setIsOpen, setUser}: Props) {
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        name: "",
-        age: "",
-        sex: undefined,
+        name: "Test",
+        age: "20",
+        sex: "L",
       },
     })
    

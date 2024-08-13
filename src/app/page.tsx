@@ -7,12 +7,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState<boolean>(true)
-  const [user, setUser] = useState<User | null>({
-    name: "Tantowi",
-    age: 20,
-    sex: "P"
-  })
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     console.log(user)
@@ -27,7 +23,7 @@ export default function Home() {
       </div>
       <div className="w-full lg:w-1/2 h-screen bg-main flex flex-wrap items-center">
         {(isOpen && user) ? 
-          <ChatContainer />
+          <ChatContainer user={user} />
         : 
           <div className="p-8 max-w-sm lg:max-w-lg mx-auto transition hover:translate-x-2 hover:scale-105 duration-500 ease-in-out">
               <Image src="/asset/3d_teeth.png" alt="3D teeth" width={768} height={768}/>
