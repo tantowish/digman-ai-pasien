@@ -95,13 +95,13 @@ export default function ChatContainer({user}: Props) {
                             :
                             <>
                                 <h1 className="mb-8 mt-4">Pilih sesuai foto atau gambar</h1>
-                                <button onClick={() => handleSetType('gigi')} className="p-2 bg-main text-white font-semibold w-2/3 rounded-lg mb-8">
+                                <button onClick={() => handleSetType('gigi')} className="p-3 bg-main text-white font-semibold w-2/3 rounded-lg mb-8">
                                     Gigi
                                 </button>
-                                <button onClick={() => handleSetType('gusi')} className="p-2 bg-main text-white font-semibold w-2/3 rounded-lg mb-8">
+                                <button onClick={() => handleSetType('gusi')} className="p-3 bg-main text-white font-semibold w-2/3 rounded-lg mb-8">
                                     Gusi
                                 </button>
-                                <button onClick={() => handleSetType('jll')} className="p-2 bg-main text-white font-semibold w-2/3 rounded-lg mb-8">
+                                <button onClick={() => handleSetType('jll')} className="p-3 bg-main text-white font-semibold w-2/3 rounded-lg mb-8">
                                     Jaringan Lunak Lainnya
                                 </button>
                             </>
@@ -112,18 +112,18 @@ export default function ChatContainer({user}: Props) {
                         <ScrollArea className="px-4 h-[60vh] overflow-y-auto w-full">
                             <ScrollBar />
                             <div className="mt-4 mb-2">
-                                <p className="bg-gray-200 text-gray-700 text-sm rounded-lg py-2 px-4 inline-block max-w-[90%] text-justify">Halo, saya adalah AI yang memiliki pengetahuan tentang gigi dan mulut, silahkan tanya apapun terkait permasalahan anda. </p>
+                                <p className="bg-gray-200 text-gray-700 rounded-lg py-2 px-4 inline-block max-w-[90%] text-justify">Halo, saya adalah AI yang memiliki pengetahuan tentang gigi dan mulut, silahkan tanya apapun terkait permasalahan anda. </p>
                             </div>
                             {messages.map((message, index) => (
                                 <div key={message.id}>
                                     {message.role === "assistant" && (
                                         <div className="mb-2">
-                                            <Markdown className="bg-gray-200 text-gray-700 text-sm rounded-lg py-2 px-4 inline-block max-w-[90%] overflow-auto text-justify">{message.content}</Markdown>
+                                            <Markdown className="bg-gray-200 text-gray-700 rounded-lg py-2 px-4 inline-block max-w-[90%] overflow-auto text-justify">{message.content}</Markdown>
                                         </div>
                                     )}
                                     {message.role === "user" && (
                                         <div className='text-right mb-2'>
-                                            <p className="bg-main text-sm text-white rounded-lg py-2 px-4 w-fit inline-block max-w-[90%] overflow-auto break-words">{message.content}</p>
+                                            <p className="bg-main text-white rounded-lg py-2 px-4 w-fit inline-block max-w-[90%] overflow-auto break-words">{message.content}</p>
                                         </div>
                                     )}
                                 </div>
