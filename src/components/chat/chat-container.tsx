@@ -36,7 +36,6 @@ export default function ChatContainer({user}: Props) {
         }])
     }, [])
 
-
     useEffect(()=>{
         if(error){
             toast({
@@ -48,7 +47,7 @@ export default function ChatContainer({user}: Props) {
     }, [error])
 
     const handleResult = () => {
-        if(messages.length < 6){
+        if(messages.length < 12){
             toast({
                 variant: "destructive",
                 title: "failed",
@@ -68,10 +67,6 @@ export default function ChatContainer({user}: Props) {
         setType(type);
         setIsUploadSection(true)
     };
-
-    useEffect(() => {
-        console.log(type)
-    }, [type])
   return (
       <div className="px-4 lg:px-0 w-full md:w-[80%] lg:w-[70%] mx-auto">
         <div className="bg-white shadow-2xl rounded-lg w-full  transition ease-in-out duration-500 group">
@@ -128,6 +123,12 @@ export default function ChatContainer({user}: Props) {
                                     )}
                                 </div>
                             ))}
+                            {
+                                messages.length >= 12 && 
+                                <div className='w-full text-center my-2'>
+                                    <button onClick={handleResult} className='hover:underline text-sm text-red-400'>Berhenti dan Lihat Hasil</button>
+                                </div>
+                            }
                         </ScrollArea>
                         <form onSubmit={handleSubmit} method="post" className="p-4 border-t flex flex-nowrap mx-auto">
                             <TextareaAutosize 
