@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { Input } from "../ui/input"
 import { FaChevronLeft } from "react-icons/fa";
 import { uploadBucket } from "@/lib/image-uploader";
@@ -6,15 +6,17 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 import Spinner from "../spinner";
+import { toast } from "../ui/use-toast";
 
 type Props = {
-    setIsUploadSection: Dispatch<SetStateAction<boolean>>
+    setIsUploadSection: Dispatch<SetStateAction<boolean>>,
+    type: string | null
 }
 
-export default function ImageInput({setIsUploadSection}: Props) {
+export default function ImageInput({setIsUploadSection, type}: Props) {
     const [uploadedFile, setUploadedFile] = useState<string | null>(null)
-    const [loading, setLoading] = useState<boolean>(false)
-    const [analyzing, setAnalyzing] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)    
+    const [analyzing, setAnalyzing] = useState<boolean>(false)    
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         setLoading(true)
         const file = event.target.files?.[0];
@@ -29,6 +31,45 @@ export default function ImageInput({setIsUploadSection}: Props) {
             console.error("No file selected");
         }
     }
+
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        console.log('clicked')
+        setAnalyzing(true)
+        console.log({ type: type, image: uploadedFile })
+        try {
+            const response = await fetch('/api/chat/image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ type: type, image: uploadedFile }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                console.log('Success:', result);
+            } else {
+                toast({
+                    title: "Failed",
+                    description: result.message,
+                    variant: "destructive"
+                })
+                console.error('Error fetch:', result.message);
+            }
+        } catch (error) {
+            toast({
+                title: "Error",
+                description: "Server error",
+                variant: "destructive"
+            })
+            console.error('Error:', error);
+        } finally {
+            setAnalyzing(false);
+        }
+    }
+
   return (
     <div className="h-full w-full flex flex-col justify-center items-center relative">
         <button className="absolute top-0 left-0 flex flex-wrap gap-1 items-center justify-center" onClick={() => setIsUploadSection(false)}>
@@ -58,7 +99,8 @@ export default function ImageInput({setIsUploadSection}: Props) {
                         <Image src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} width={320} height={288} className="w-full h-full object-cover" alt=""/>
                     </div>
                 </label>
-                <Button>{analyzing ? 
+                <Button type="button" disabled={analyzing} onClick={handleSubmit}>
+                    {analyzing ? 
                         <Spinner/>
                         :
                         "Analysis"

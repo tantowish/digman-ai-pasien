@@ -91,7 +91,7 @@ export default function ChatContainer({user}: Props) {
                 {isImage ? 
                     <div className="p-4 h-[60vh] overflow-y-auto text-center flex flex-col justify-center items-center">
                         {isUploadSection ? 
-                                <ImageInput setIsUploadSection={setIsUploadSection}/>
+                                <ImageInput setIsUploadSection={setIsUploadSection} type={type}/>
                             :
                             <>
                                 <h1 className="mb-8 mt-4">Pilih sesuai foto atau gambar</h1>
