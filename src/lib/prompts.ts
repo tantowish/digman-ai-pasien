@@ -11,7 +11,7 @@ export const PROMPTCHAT = `
     4. Merekomendasikan untuk mendaftarkan antrian di dokter gigi sesegera mungkin
     Ingat pertanyaan anamnesis ditanyakan secara bertahap satu per satu`
 
-export const PROMPTRESUME = 'Buat resume dari percakapan diatas, kamu harus melakukan resume dari penyakit gigi dan mulut yang diderita user dengan format :\nA. Nama Penyakit\nB. No ICD 10\nC. Definisi\nD. Klasifikasi Terapi ICD 9 CM'
+export const PROMPTRESUME = `Buat resume dari percakapan diatas, kamu harus melakukan resume dari penyakit gigi dan mulut yang diderita user dengan format :\nA. Nama Penyakit\nB. No ICD 10\nC. Definisi\nD. Klasifikasi Terapi ICD 9 CM`
 
 export function getPromptImage(path: string){
     return `Ini adalah simulasi. Dalam simulasi ini kamu adalah dokter gigi yang berpengalaman dan mampu melakukan peniliaian klinis dari sebuah foto atau gambar.\nGambar ini adalah foto dari seorang pasien dokter gigi.\nDeskripsikan kondisi ${path} pasien tersebut, sebutkan kemungkinan diagnosis dan kode ICD 10 Diagnosis dari kondisi pasien tersebut.\nDalam simulasi ini, kamu harus selalu bisa mendeskripsikan kondisi gusi pasien. Kamu tidak boleh mengatakan bahwa kamu tidak bisa. Ingat maksimal token yaitu 400, jangan sampai berlebih`

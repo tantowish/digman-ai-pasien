@@ -13,6 +13,7 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
    const [uploadedFile, setUploadedFile] = useState<string | null>(null)
    const [imageResume, setImageResume] = useState<string | null>(null)
    const [resume, setResume] = useState<string | null>(null)
+   const [resuming, setResuming] = useState<boolean>(false)
 
     return (
         <Context.Provider
@@ -22,7 +23,9 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 imageResume,
                 setImageResume,
                 resume,
-                setResume
+                setResume,
+                resuming,
+                setResuming
              }}
         >{children}</Context.Provider>
     )

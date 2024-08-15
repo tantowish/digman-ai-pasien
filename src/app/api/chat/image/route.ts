@@ -1,8 +1,6 @@
 import { openai } from '@ai-sdk/openai';
-import { generateText, streamText } from 'ai';
-import { google } from '@ai-sdk/google';
+import { generateText } from 'ai';
 import { NextRequest, NextResponse } from 'next/server';
-import { anthropic } from '@ai-sdk/anthropic';
 import { getPromptImage } from '@/lib/prompts';
 
 export async function POST(req: NextRequest) {
@@ -10,7 +8,7 @@ export async function POST(req: NextRequest) {
         const { type, image } = await req.json();
 
         const { text } = await generateText({
-            model: openai('gpt-4-turbo'),
+            model: openai('gpt-4o'),
             system: getPromptImage(type),
             messages: [
                 {

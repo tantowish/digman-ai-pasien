@@ -106,8 +106,8 @@ export default function ImageInput({setIsUploadSection, type}: Props) {
                     uploadedFile ? 
                     <div className="flex flex-col justify-center items-center gap-2">
                         <label className="cursor-pointer p-4 text-black border border-main border-dashed rounded-md" htmlFor="gambar">
-                            <div className="w-80 h-60">
-                                <Image src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} width={320} height={288} className="w-full h-full object-cover" alt=""/>
+                            <div className="w-80 h-60 rounded">
+                                <Image src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} width={320} height={288} className="w-full h-full object-cover rounded" alt=""/>
                             </div>
                         </label>
                         <Button type="button" disabled={analyzing} onClick={handleSubmit}>

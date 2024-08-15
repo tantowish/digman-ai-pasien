@@ -4,17 +4,19 @@ import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 import Markdown from 'react-markdown'
 import { FaCamera } from "react-icons/fa";
 import { BsChatLeftTextFill } from "react-icons/bs";
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from '../ui/use-toast';
 import { User } from '@/types/user';
-import { PROMPTCHAT } from '@/lib/prompts';
+import { PROMPTCHAT, PROMPTRESUME } from '@/lib/prompts';
 import TextareaAutosize from 'react-textarea-autosize';
 import ImageInput from './image-input';
+import { Context } from '@/context/context';
 
 type Props = {
     user: User
 }
 export default function ChatContainer({user}: Props) {
+    const {resume, setResume, resuming, setResuming} = useContext(Context)
     const [isImage, setIsImage] = useState<boolean>(false)
     const [type, setType] = useState<string | null>(null)
     const [isUploadSection, setIsUploadSection] = useState<boolean>(false)
@@ -46,14 +48,42 @@ export default function ChatContainer({user}: Props) {
         }
     }, [error])
 
-    const handleResult = () => {
-        if(messages.length < 12){
+    const handleResult = async () => {
+        try {
+            setResuming(true)
+            const response = await fetch('/api/chat/resume', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ messages: messages }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                setResume(result.data.text)
+                console.log('Success:', result);
+                
+            } else {
+                toast({
+                    title: "Failed",
+                    description: result.message,
+                    variant: "destructive"
+                })
+                console.error('Error fetch:', result.message);
+            }
+        } catch (error) {
             toast({
-                variant: "destructive",
-                title: "failed",
-                description: "Selesaikan konsultasi" 
+                title: "Error",
+                description: "Server error",
+                variant: "destructive"
             })
+            console.error('Error:', error);
+        } finally {
+            setResuming(false)
         }
+
     }
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -67,6 +97,10 @@ export default function ChatContainer({user}: Props) {
         setType(type);
         setIsUploadSection(true)
     };
+
+    useEffect(() => {
+        console.log(resume)
+    }, [resume])
   return (
       <div className="px-4 lg:px-0 w-full md:w-[80%] lg:w-[70%] mx-auto">
         <div className="bg-white shadow-2xl rounded-lg w-full  transition ease-in-out duration-500 group">
@@ -124,7 +158,7 @@ export default function ChatContainer({user}: Props) {
                                 </div>
                             ))}
                             {
-                                messages.length >= 12 && 
+                                messages.length >= 6 && 
                                 <div className='w-full text-center my-2'>
                                     <button onClick={handleResult} className='hover:underline text-sm text-red-400'>Berhenti dan Lihat Hasil</button>
                                 </div>

@@ -6,11 +6,8 @@ import { anthropic } from '@ai-sdk/anthropic';
 
 export async function POST(req: NextRequest) {
     try{
-        const { messages } = await req.json();
-        // console.log(messages)
-        
+        const { messages } = await req.json();        
         const model = "chatgpt"
-        // console.log(model)
 
         if(model == 'chatgpt'){
             if(!process.env.OPENAI_API_KEY){
@@ -19,7 +16,7 @@ export async function POST(req: NextRequest) {
 
             console.log('Getting GPT response')
             const response = await streamText({
-                model: openai('gpt-4'),
+                model: openai('gpt-4o'),
                 messages,
             });
 

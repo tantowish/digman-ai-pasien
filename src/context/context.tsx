@@ -7,6 +7,8 @@ interface Context {
     setImageResume: Dispatch<SetStateAction<string | null>>,
     resume: string | null,
     setResume: Dispatch<SetStateAction<string | null>>,
+    resuming: boolean,
+    setResuming: Dispatch<SetStateAction<boolean>>
 }
 
 export const Context = createContext<Context>({
@@ -15,5 +17,7 @@ export const Context = createContext<Context>({
     imageResume: null,
     setImageResume: () => {},
     resume: null,
-    setResume: () => {}
+    setResume: () => {},
+    resuming: false,
+    setResuming: () => {}
 })
