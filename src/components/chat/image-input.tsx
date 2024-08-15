@@ -94,32 +94,36 @@ export default function ImageInput({setIsUploadSection, type}: Props) {
                     id="gambar" 
                     accept="image/*"
                     onChange={handleFileChange}
+                    disabled={loading || analyzing}
                 />
                 {loading ?
-                    <div className="flex flex-col justify-center items-center gap-2">
-                        <label className="cursor-pointer text-black border border-main border-dashed rounded-md p-4 flex flex-wrap justify-center items-center">
+                    <div className="flex flex-col justify-center items-center gap-4">
+                        <label className="cursor-pointer text-black border border-main border-dashed rounded-xl p-4 flex flex-wrap justify-center items-center">
                             <Skeleton className="w-80 h-60"/>
                         </label>
                         <Button disabled className="flex flex-wrap justify-center items-center gap-1"><Spinner/>Uploading</Button>
                     </div>
                     :
                     uploadedFile ? 
-                    <div className="flex flex-col justify-center items-center gap-2">
-                        <label className="cursor-pointer p-4 text-black border border-main border-dashed rounded-md" htmlFor="gambar">
+                    <div className="flex flex-col justify-center items-center gap-4">
+                        <label className={`p-3 text-black border border-main border-dashed rounded-xl ${loading || analyzing ? "cursor-not-allowed": "cursor-pointer"}`} htmlFor="gambar">
                             <div className="w-80 h-60 rounded">
-                                <Image src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} width={320} height={288} className="w-full h-full object-cover rounded" alt=""/>
+                                <Image src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} width={320} height={288} className="w-full h-full object-cover rounded-lg" alt=""/>
                             </div>
                         </label>
                         <Button type="button" disabled={analyzing} onClick={handleSubmit}>
                             {analyzing ? 
-                                <Spinner/>
+                                <div className="flex flex-wrap justify-center items-center gap-2">
+                                    <Spinner/> 
+                                    <p>Analyzing</p> 
+                                </div>
                                 :
                                 "Analysis"
                             }
                         </Button>
                     </div>
                     :
-                    <label className="cursor-pointer text-black border border-main border-dashed rounded-md h-24 flex flex-wrap justify-center items-center" htmlFor="gambar">
+                    <label className={`cursor-pointer text-black border border-main border-dashed rounded-md h-24 flex flex-wrap justify-center items-center  ${loading || analyzing ? "cursor-not-allowed": "cursor-pointer"}`} htmlFor="gambar">
                         <p className="w-60">Pick photo</p>
                     </label>
                 }
