@@ -1,7 +1,5 @@
 import { useChat } from 'ai/react';
-import { Button } from '../ui/button'
 import { ScrollArea, ScrollBar } from '../ui/scroll-area';
-import Markdown from 'react-markdown'
 import { FaCamera } from "react-icons/fa";
 import { BsChatLeftTextFill } from "react-icons/bs";
 import { useContext, useEffect, useState } from 'react';
@@ -11,6 +9,8 @@ import { PROMPTCHAT, PROMPTRESUME } from '@/lib/prompts';
 import TextareaAutosize from 'react-textarea-autosize';
 import ImageInput from './image-input';
 import { Context } from '@/context/context';
+import Markdown from "react-markdown"
+
 
 type Props = {
     user: User

@@ -2,6 +2,7 @@
 
 import ChatContainer from "@/components/chat/chat-container";
 import { PatientForm } from "@/components/patient-form";
+import Result from "@/components/result";
 import { Context } from "@/context/context";
 import { User } from "@/types/user";
 import Image from "next/image";
@@ -42,7 +43,7 @@ export default function Home() {
                   </div>
                   <h1 className="text-center text-2xl text-slate-700 w-full mt-4 mb-8 font-semibold">Analisis Berhasil</h1>
                   <div className="flex flex-wrap gap-10">
-                      <button type="button" id="result-user" className="bg-main text-white py-2 px-4 lg:py-2.5 lg:px-8 text-sm md:text-base rounded-md hover:bg-teal-400 transition duration-300 flex items-center">Lihat Hasil</button>
+                      <Result />
                       <button type="button" id="daftar" className="bg-main text-white py-2 px-4 lg:py-2.5 lg:px-8 text-sm md:text-base rounded-md hover:bg-teal-400 transition duration-300 flex items-center">Daftar Antrian</button>
                   </div>
               </div>

@@ -76,7 +76,7 @@ export default function ImageInput({setIsUploadSection, type}: Props) {
         {imageResume ? 
                 <div>
                     <div className="w-80 h-60">
-                        <Image src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} width={320} height={288} className="w-full h-full object-cover" alt=""/>
+                        <Image src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} width={320} height={288} className="w-full h-full object-cover" alt={uploadedFile || "uplouded-image"}/>
                     </div>
                     <p>Sudah Analisis</p>
                     <Button type="button" onClick={() => setImageResume(null)}>Ulangi</Button>
