@@ -60,7 +60,7 @@ export default function Home() {
             <ChatContainer user={user} />
           : 
             <div className="p-8 max-w-sm lg:max-w-lg mx-auto transition hover:translate-x-2 hover:scale-105 duration-500 ease-in-out">
-                <Image src="/asset/3d_teeth.png" alt="3D teeth" width={768} height={768}/>
+                <Image src="/asset/3d_teeth.png" alt="3D teeth" width={768} height={768} loading="eager"/>
             </div>
           }
         </div>
