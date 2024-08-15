@@ -14,6 +14,7 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
    const [imageResume, setImageResume] = useState<string | null>(null)
    const [resume, setResume] = useState<string | null>(null)
    const [resuming, setResuming] = useState<boolean>(false)
+   const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
 
     return (
         <Context.Provider
@@ -25,7 +26,9 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 resume,
                 setResume,
                 resuming,
-                setResuming
+                setResuming,
+                modalImageUrl,
+                setModalImageUrl
              }}
         >{children}</Context.Provider>
     )

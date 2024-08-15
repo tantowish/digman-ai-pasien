@@ -1,6 +1,7 @@
 'use client'
 
 import ChatContainer from "@/components/chat/chat-container";
+import { Modal } from "@/components/modal";
 import { PatientForm } from "@/components/patient-form";
 import Result from "@/components/result";
 import { Context } from "@/context/context";
@@ -11,7 +12,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 export default function Home() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [user, setUser] = useState<User | null>(null)
-  const {resume, setResume, resuming} = useContext(Context)
+  const {resume, setResume, resuming, modalImageUrl, setModalImageUrl, uploadedFile} = useContext(Context)
 
   const pageRef = useRef<HTMLDivElement>(null)
 
@@ -76,6 +77,13 @@ export default function Home() {
             </div>
           }
         </div>
+        {modalImageUrl && (
+            <Modal
+                src={modalImageUrl}
+                alt={uploadedFile || "uploaded-image"} 
+                onClose={() => setModalImageUrl(null)}
+            />
+        )}
     </div>
   );
 }

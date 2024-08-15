@@ -10,13 +10,14 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
 import { Context } from "@/context/context"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { ScrollArea } from "./ui/scroll-area"
 import Markdown from "react-markdown"
 import Image from "next/image"
+import { Modal } from "./modal"
 
 export default function Result() {
-    const {resume, imageResume, uploadedFile} = useContext(Context)
+    const {resume, imageResume, uploadedFile, setModalImageUrl} = useContext(Context)
   return (
     <AlertDialog>
         <AlertDialogTrigger>
@@ -35,7 +36,14 @@ export default function Result() {
                         <div>
                             <h4 className="font-bold text-base text-slate-800 mb-4">Resume Image</h4>
                             <div className="w-72 h-48 mx-auto mb-2 rounded-lg">
-                                <Image src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} width={320} height={288} alt={uploadedFile || "uploaded-image"} className="w-full h-full object-cover rounded-lg"/>
+                                <Image 
+                                    src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} 
+                                    width={320} 
+                                    height={288} 
+                                    alt={uploadedFile || "uploaded-image"} 
+                                    className="w-full h-full object-cover rounded-lg"
+                                    onClick={() => setModalImageUrl(`https://storage.googleapis.com/digman-dev/${uploadedFile}`)}
+                                />
                             </div>
                             <Markdown className={"text-justify"}>{imageResume}</Markdown>
                         </div>

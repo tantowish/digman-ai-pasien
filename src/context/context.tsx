@@ -8,7 +8,9 @@ interface Context {
     resume: string | null,
     setResume: Dispatch<SetStateAction<string | null>>,
     resuming: boolean,
-    setResuming: Dispatch<SetStateAction<boolean>>
+    setResuming: Dispatch<SetStateAction<boolean>>,
+    modalImageUrl: string | null,
+    setModalImageUrl: Dispatch<SetStateAction<string | null>>
 }
 
 export const Context = createContext<Context>({
@@ -19,5 +21,7 @@ export const Context = createContext<Context>({
     resume: null,
     setResume: () => {},
     resuming: false,
-    setResuming: () => {}
+    setResuming: () => {},
+    modalImageUrl: null,
+    setModalImageUrl: () => {}
 })
