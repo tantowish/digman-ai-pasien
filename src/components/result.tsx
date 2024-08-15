@@ -26,7 +26,7 @@ export default function Result() {
         <AlertDialogHeader>
             <AlertDialogTitle className="text-xl font-bold text-main">Hasil Analisis AI</AlertDialogTitle>
             <AlertDialogDescription>
-                <ScrollArea className="h-[450px]">
+                <ScrollArea className="h-[450px] sm:h-[400px]">
                     <div className="mb-4 mt-2">
                         <h4 className="font-bold text-base text-slate-800">Resume Konsultasi</h4>
                         <Markdown className={"text-justify"}>{resume}</Markdown>
