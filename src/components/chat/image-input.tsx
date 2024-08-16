@@ -15,7 +15,7 @@ type Props = {
 }
 
 export default function ImageInput({setIsUploadSection, type}: Props) {
-    const {uploadedFile, setUploadedFile, imageResume, setImageResume, uploading, setUploading, analyzing, setAnalyzing} = useContext(Context) 
+    const {uploadedFile, setUploadedFile, imageResume, setImageResume, uploading, setUploading, analyzing, setAnalyzing, params} = useContext(Context) 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         setUploading(true)
         const file = event.target.files?.[0];
@@ -40,7 +40,7 @@ export default function ImageInput({setIsUploadSection, type}: Props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ type: type, image: uploadedFile }),
+                body: JSON.stringify({ type: type, image: uploadedFile, link: params?.link }),
             });
 
             const result = await response.json();

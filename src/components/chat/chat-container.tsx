@@ -56,7 +56,7 @@ export default function ChatContainer({user}: Props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ messages: messages }),
+                body: JSON.stringify({ messages: messages, link: params?.link }),
             });
 
             const result = await response.json();

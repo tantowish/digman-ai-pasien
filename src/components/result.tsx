@@ -1,7 +1,6 @@
 import {
     AlertDialog,
     AlertDialogAction,
-    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
     AlertDialogFooter,
@@ -10,11 +9,10 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
 import { Context } from "@/context/context"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { ScrollArea } from "./ui/scroll-area"
 import Markdown from "react-markdown"
 import Image from "next/image"
-import { Modal } from "./modal"
 
 export default function Result() {
     const {resume, imageResume, uploadedFile, setModalImageUrl} = useContext(Context)
