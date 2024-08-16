@@ -15,20 +15,17 @@ type Props = {
 }
 
 export default function ImageInput({setIsUploadSection, type}: Props) {
-    const {uploadedFile, setUploadedFile, imageResume, setImageResume} = useContext(Context)
-    const [loading, setLoading] = useState<boolean>(false)    
-    const [analyzing, setAnalyzing] = useState<boolean>(false)    
+    const {uploadedFile, setUploadedFile, imageResume, setImageResume, uploading, setUploading, analyzing, setAnalyzing} = useContext(Context) 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLoading(true)
+        setUploading(true)
         const file = event.target.files?.[0];
-        // Check if the file exists before attempting to upload
         if (file) {
             const uploaded = await uploadBucket(file);
             setUploadedFile(uploaded)
-            setLoading(false)
+            setUploading(false)
             console.log(uploaded)
         } else {
-            setLoading(false)
+            setUploading(false)
             console.error("No file selected");
         }
     }
@@ -96,9 +93,9 @@ export default function ImageInput({setIsUploadSection, type}: Props) {
                     id="gambar" 
                     accept="image/*"
                     onChange={handleFileChange}
-                    disabled={loading || analyzing}
+                    disabled={uploading || analyzing}
                 />
-                {loading ?
+                {uploading ?
                     <div className="flex flex-col justify-center items-center gap-4">
                         <label className="cursor-pointer text-black border border-main border-dashed rounded-xl p-4 flex flex-wrap justify-center items-center">
                             <Skeleton className="w-80 h-60"/>
@@ -108,7 +105,7 @@ export default function ImageInput({setIsUploadSection, type}: Props) {
                     :
                     uploadedFile ? 
                     <div className="flex flex-col justify-center items-center gap-4">
-                        <label className={`p-3 text-black border border-main border-dashed rounded-xl ${loading || analyzing ? "cursor-not-allowed": "cursor-pointer"}`} htmlFor="gambar">
+                        <label className={`p-3 text-black border border-main border-dashed rounded-xl ${uploading || analyzing ? "cursor-not-allowed": "cursor-pointer"}`} htmlFor="gambar">
                             <div className="w-80 h-60 rounded">
                                 <Image src={`https://storage.googleapis.com/digman-dev/${uploadedFile}`} width={320} height={288} className="w-full h-full object-cover rounded-lg" alt=""/>
                             </div>
@@ -125,7 +122,7 @@ export default function ImageInput({setIsUploadSection, type}: Props) {
                         </Button>
                     </div>
                     :
-                    <label className={`cursor-pointer text-black border border-main border-dashed rounded-md h-24 flex flex-wrap justify-center items-center  ${loading || analyzing ? "cursor-not-allowed": "cursor-pointer"}`} htmlFor="gambar">
+                    <label className={`cursor-pointer text-black border border-main border-dashed rounded-md h-24 flex flex-wrap justify-center items-center  ${uploading || analyzing ? "cursor-not-allowed": "cursor-pointer"}`} htmlFor="gambar">
                         <p className="w-60">Pick photo</p>
                     </label>
                 }

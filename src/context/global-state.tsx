@@ -1,5 +1,6 @@
 'use client'
 
+import { QueryParams } from "@/app/page";
 import { Context } from "@/context/context";
 import { FC, useState } from "react";
 
@@ -15,6 +16,9 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
    const [resume, setResume] = useState<string | null>(null)
    const [resuming, setResuming] = useState<boolean>(false)
    const [modalImageUrl, setModalImageUrl] = useState<string | null>(null);
+   const [uploading, setUploading] = useState<boolean>(false)    
+   const [analyzing, setAnalyzing] = useState<boolean>(false) 
+   const [params, setParams] = useState<QueryParams | null>(null)
 
     return (
         <Context.Provider
@@ -28,7 +32,13 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
                 resuming,
                 setResuming,
                 modalImageUrl,
-                setModalImageUrl
+                setModalImageUrl,
+                uploading,
+                setUploading,
+                analyzing,
+                setAnalyzing,
+                params,
+                setParams
              }}
         >{children}</Context.Provider>
     )

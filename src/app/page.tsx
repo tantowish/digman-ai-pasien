@@ -7,13 +7,40 @@ import Result from "@/components/result";
 import { Context } from "@/context/context";
 import { User } from "@/types/user";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { useContext, useEffect, useRef, useState } from "react";
+
+export type QueryParams = {
+  link?: string,
+  rekmed?: string,
+  name?: string,
+  age?: string,
+  sex?: "P" | "L" | undefined
+}
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [user, setUser] = useState<User | null>(null)
-  const {resume, setResume, resuming, modalImageUrl, setModalImageUrl, uploadedFile} = useContext(Context)
+  const {resume, resuming, modalImageUrl, setModalImageUrl, uploadedFile, setParams, params} = useContext(Context)
 
+  const searchParams = useSearchParams()
+
+
+  useEffect(() => {
+    const params: QueryParams = {
+      link: searchParams.get('link') || undefined,
+      rekmed: searchParams.get('rekmed') || undefined,
+      name: searchParams.get('nama') || undefined,
+      age: searchParams.get('umur') || undefined,
+      sex: searchParams.get('kelamin') as "P"|"L" || undefined,
+    } 
+    setParams(params)
+    setUser({
+      name: params.name!,
+      age: Number(params.age),
+      sex: params.sex as "P"|"L"
+    })
+  }, [])
   const pageRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -25,11 +52,6 @@ export default function Home() {
       });
     }
   }, [isOpen]);
-
-  // useEffect(() => {
-  //   console.log(user)
-  //   console.log(isOpen)
-  // }, [user, isOpen])
   return (
     <div className="flex flex-wrap h-screen items-center text-slate-600" ref={pageRef}>
       {resuming ?

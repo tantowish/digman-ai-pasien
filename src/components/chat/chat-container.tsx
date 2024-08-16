@@ -16,11 +16,11 @@ type Props = {
     user: User
 }
 export default function ChatContainer({user}: Props) {
-    const {resume, setResume, resuming, setResuming} = useContext(Context)
+    const {resume, setResume, setResuming, params} = useContext(Context)
     const [isImage, setIsImage] = useState<boolean>(false)
     const [type, setType] = useState<string | null>(null)
     const [isUploadSection, setIsUploadSection] = useState<boolean>(false)
-    const { messages, input, handleInputChange, handleSubmit, error, isLoading, setMessages } = useChat({
+    const { messages, input, handleInputChange, handleSubmit: originalHandleSubmit, error, isLoading, setMessages } = useChat({
         initialMessages: [
             {
                 id: new Date().toISOString(),
@@ -101,6 +101,20 @@ export default function ChatContainer({user}: Props) {
     useEffect(() => {
         console.log(resume)
     }, [resume])
+
+    const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        if (!input.trim()) {
+            return;
+        }
+
+        const data:Record<string, string> = {
+            link: params?.link || "",
+        };
+
+        originalHandleSubmit(event, {data});
+    };
   return (
       <div className="px-4 lg:px-0 w-full md:w-[80%] lg:w-[70%] mx-auto">
         <div className="bg-white shadow-2xl rounded-lg w-full  transition ease-in-out duration-500 group">

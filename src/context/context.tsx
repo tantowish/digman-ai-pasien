@@ -1,3 +1,4 @@
+import { QueryParams } from "@/app/page";
 import { Dispatch, SetStateAction, createContext } from "react";
 
 interface Context {
@@ -11,6 +12,12 @@ interface Context {
     setResuming: Dispatch<SetStateAction<boolean>>,
     modalImageUrl: string | null,
     setModalImageUrl: Dispatch<SetStateAction<string | null>>
+    uploading: boolean,
+    setUploading: Dispatch<SetStateAction<boolean>>,
+    analyzing: boolean
+    setAnalyzing: Dispatch<SetStateAction<boolean>>,
+    params: QueryParams | null,
+    setParams: Dispatch<SetStateAction<QueryParams | null>>
 }
 
 export const Context = createContext<Context>({
@@ -23,5 +30,11 @@ export const Context = createContext<Context>({
     resuming: false,
     setResuming: () => {},
     modalImageUrl: null,
-    setModalImageUrl: () => {}
+    setModalImageUrl: () => {},
+    uploading: false,
+    setUploading: () => {},
+    analyzing: false,
+    setAnalyzing: () => {},
+    params: null,
+    setParams: () => {}
 })

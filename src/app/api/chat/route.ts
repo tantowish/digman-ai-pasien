@@ -6,13 +6,40 @@ import { anthropic } from '@ai-sdk/anthropic';
 
 export async function POST(req: NextRequest) {
     try{
-        const { messages } = await req.json();        
-        const model = "chatgpt"
+        const { messages, data } = await req.json();   
+        const link = data.link
+        console.log(link)
+        if (!link || link.trim() === "") {
+            return new NextResponse('Link Digman tidak tersedia.', { status: 404 });
+        }
+
+        const formData = new FormData();
+        formData.append("email", "ai@carigi.id");
+        formData.append("password", "password");
+        console.log(formData)
+
+        const loginResponse = await fetch(`https://${link}/aiauth/device_login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            body: formData
+        });
+
+        console.log(await loginResponse.json())
+        if (!loginResponse.ok) {
+            throw new Error('Login request failed');
+        }
+
+        const loginResult = await loginResponse.json();
+        const api_key = loginResult.tokenAi;
+        const model = "chatgpt";
+        console.log(api_key)
 
         if(model == 'chatgpt'){
             if(!process.env.OPENAI_API_KEY){
                 return new NextResponse('Missing Openai API Key.', {status: 400})
-            }    
+            }
 
             console.log('Getting GPT response')
             const response = await streamText({
